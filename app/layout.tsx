@@ -1,8 +1,9 @@
+import { siteConfig } from "@/config/site";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { twMerge } from "tailwind-merge";
-import { siteConfig } from "@/config/site";
+import { ThemeProvider } from "next-themes";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,8 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={twMerge(inter.className)}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(inter.className)}>
+        <ThemeProvider attribute="class" disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
